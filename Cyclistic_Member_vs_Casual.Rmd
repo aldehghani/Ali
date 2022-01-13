@@ -1,0 +1,82 @@
+---
+title: "Cyclist_MemberVS_Casual"
+author: "Ali Dehghani"
+date: "13/01/2022"
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+---
+
+## How Cyclist annual members & casual riders use bikes differently in 2021
+
+In this study The data has been made available by Motivate International Inc under the licence of Lyft Bikes and Scooters, LLC (“Bikeshare”).  
+In order to investigate how annual members and casual users use the bike differently, Data visualization with **ggplot2** was used. On the next step to clean and process data in **RStudio**, then the following packages and function were called:  
+
+* library(tidyverse)
+* library(dplyr)
+* library(here)
+* library(skimr)
+* library(janitor)
+
+Then the file was uploaded in Rstudio using **read_csv** function.
+
+```{r}
+cyclistic<-read.csv("cyclistic.csv")
+
+library(tidyverse)
+library(dplyr)
+library(here)
+library(skimr)
+library(janitor)
+
+
+```
+
+## 55% of the riders are annual members
+
+```{r}
+  ggplot(data=cyclistic)+
+  geom_bar(mapping=aes(x=member_casual, fill=member_casual))+
+  scale_fill_brewer(palette = "Reds")+
+  labs(x="Type of Riders", y="Number of Riders",
+  title="2021 Cyclistic Riders Disctribution", 
+  caption="The data has been made available by Motivate International Inc under the licence of Lyft Bikes and Scooters, LLC (“Bikeshare”) ")+
+  theme_minimal()
+```
+
+##Type of bikes used by different group of memebrs 
+
+```{r}
+  ggplot(data=cyclistic)+
+  geom_bar(mapping=aes(x=rideable_type, fill=rideable_type))+
+  scale_fill_brewer(palette = "Reds")+
+  labs(x="Type of Bikes", y="Number of Bikes",
+       title="2021 Cyclistic Casual vs Member Bike Type Disctribution", 
+       caption="The data has been made available by Motivate International Inc under the licence of Lyft Bikes and Scooters, LLC (“Bikeshare”) ")+
+  theme_minimal() + facet_wrap(~member_casual)
+```
+
+
+
+
+
+## 2021 Cyclistic Casual vs Member Bike Use per Days of Week
+based on the following graphs the annual members tend to use the bike throughout the week, in the other hand casual riders seems to used the bike mostly on the weekends.
+
+```{r}
+  ggplot(data=cyclistic)+
+  geom_bar(mapping=aes(x=day_of_week, fill=day_of_week))+
+  scale_fill_brewer(palette = "Reds")+
+  labs(x="day of week", y="count",
+       title="2021 Cyclistic Casual vs Member Bike Use per Days of Week", 
+       caption="The data has been made available by Motivate International Inc under the licence of Lyft Bikes and Scooters, LLC (“Bikeshare”) ")+
+  theme_minimal()+facet_wrap(~member_casual)
+```
+
+## Conclusions
+
+#### * Annual riders are 55% of total users
+#### * Annual riders ride the bikes throughout the week days consistently
+#### * Casual riders tends to ride the bike more on the weekends
+#### * Casual riders rider the electric bikes proportinaly more than annual members
